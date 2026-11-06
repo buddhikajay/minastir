@@ -1,0 +1,15 @@
+[workspace]
+resolver = "2"
+members = ["crates/*"]
+
+# Per-frame pixel work in the live engine is too slow unoptimised; keep `cargo run` usable.
+[profile.dev.package.minastir-vision]
+opt-level = 3
+
+# Site-photo alignment runs thousands of FFTs.
+[profile.dev.package.rustfft]
+opt-level = 3
+
+# Fingerprint crops are resized per frame.
+[profile.dev.package.image]
+opt-level = 3

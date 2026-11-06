@@ -1,0 +1,559 @@
+---
+import Base from "../layouts/Base.astro";
+import { SITE } from "../site";
+
+const steps = [
+  {
+    n: "01",
+    title: "Connect",
+    body: "Point Minastir at the cameras you already own. UniFi Protect, Reolink and any ONVIF or RTSP camera. No new hardware.",
+  },
+  {
+    n: "02",
+    title: "Map",
+    body: "Each camera measures its own view: height, tilt, lens and the ground it sees. Overlapping cameras line themselves up. Add a satellite screenshot and the map snaps onto it.",
+  },
+  {
+    n: "03",
+    title: "See",
+    body: "People and vehicles appear on the map as they move. Seen by two cameras, shown once, in the place they really are.",
+  },
+];
+
+const built = [
+  { label: "Street", body: "Road, kerbs, nature strips and footpaths, straight and to scale." },
+  { label: "Driveways", body: "Found where paving crosses the verge, even under a parked car." },
+  { label: "Trees and walls", body: "From what each camera sees, merged where views overlap." },
+  { label: "Houses", body: "Click a roof on the map photo. Drag a corner to adjust." },
+];
+
+const next = [
+  { title: "Blind spots, named", body: "Percent covered per zone, gaps marked in red, in words." },
+  { title: "Rewind the place", body: "Replay an incident across the whole site at once, every camera in sync." },
+  { title: "Thermal mode", body: "A third view alongside Night and Day." },
+];
+---
+
+<Base>
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a href="/" class="lockup" aria-label="Minastir home">
+        <img src="/brand/minastir-lockup-for-dark.svg" alt="Minastir" width="176" height="40" />
+      </a>
+      <nav aria-label="Sections">
+        <a href="#how">How it works</a>
+        <a href="#scene">The map</a>
+        <a href="#privacy">Privacy</a>
+      </nav>
+      <a class="btn btn-primary nav-cta" href="#start">Map my site</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero: the live 3D view is the brand. -->
+    <section class="hero" aria-labelledby="hero-title">
+      <canvas id="hero-scene" aria-label="A live 3D map of a house and street, drawn from its security cameras."></canvas>
+      <div id="hero-tags" class="hero-tags" aria-hidden="true"></div>
+      <div class="hero-fade" aria-hidden="true"></div>
+      <div class="wrap hero-copy">
+        <p class="label">{SITE.descriptor}</p>
+        <h1 id="hero-title" class="display-xl">See the whole ground.</h1>
+        <p class="lede">
+          Minastir turns the security cameras you already have into one live 3D map of your site. Every camera where it
+          really is. Every blind spot named.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#start">Map my site</a>
+          <a class="btn btn-quiet" href="#how">How it works</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- From sixteen feeds to one view -->
+    <section class="section">
+      <div class="wrap split">
+        <div>
+          <p class="label">The idea</p>
+          <h2 class="display-l">From sixteen feeds to one view.</h2>
+          <p class="lede">
+            A wall of tiles tells you what each camera sees. It doesn't tell you where. Minastir places every feed in the
+            site itself, so you watch the place, not the grid.
+          </p>
+        </div>
+        <div class="compare" aria-hidden="true">
+          <div class="tiles">
+            {Array.from({ length: 16 }).map((_, i) => <span class={i === 5 ? "tile lit" : "tile"} />)}
+          </div>
+          <span class="arrow">→</span>
+          <div class="one">
+            <img src="/brand/minastir-mark-for-dark.svg" alt="" width="56" height="52" />
+            <span class="pill"><span class="dot clear"></span>One map</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How it works -->
+    <section id="how" class="section band">
+      <div class="wrap">
+        <p class="label">How it works</p>
+        <h2 class="display-l">Set up in an evening.</h2>
+        <div class="steps">
+          {
+            steps.map((s) => (
+              <article class="card step">
+                <span class="numeral">{s.n}</span>
+                <h3>{s.title}</h3>
+                <p>{s.body}</p>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- What the map is made of -->
+    <section id="scene" class="section">
+      <div class="wrap split">
+        <div>
+          <p class="label">The map</p>
+          <h2 class="display-l">Built from what your cameras see.</h2>
+          <p class="lede">
+            No floor plan to draw. Minastir reads the ground in every view, then joins the views into one place you can
+            orbit, zoom and walk through.
+          </p>
+        </div>
+        <ul class="built">
+          {
+            built.map((b) => (
+              <li>
+                <span class="pill">
+                  <span class="dot" />
+                  {b.label}
+                </span>
+                <p>{b.body}</p>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </section>
+
+    <!-- Readout -->
+    <section class="section band">
+      <div class="wrap readouts">
+        <div>
+          <span class="numeral">4</span>
+          <span class="label">cameras, one world</span>
+        </div>
+        <div>
+          <span class="numeral">±0.4<small>m</small></span>
+          <span class="label">where views overlap</span>
+        </div>
+        <div>
+          <span class="numeral">10<small>×/s</small></span>
+          <span class="label">live positions on the map</span>
+        </div>
+        <p class="readout-note">Measured on a suburban house with four existing cameras.</p>
+      </div>
+    </section>
+
+    <!-- Privacy -->
+    <section id="privacy" class="section">
+      <div class="wrap split">
+        <div>
+          <p class="label">Privacy</p>
+          <h2 class="display-l">We watch places, not people.</h2>
+        </div>
+        <div class="privacy">
+          <p class="lede">
+            Minastir runs on a computer at your site. Video is processed there and never leaves it. No cloud account, no
+            face recognition. People appear on the map as shapes, not identities.
+          </p>
+          <ul class="facts">
+            <li><span class="dot"></span>Runs locally, on your own hardware</li>
+            <li><span class="dot"></span>Works with the cameras you already own</li>
+            <li><span class="dot"></span>No faces, no names, no tracking profiles</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- For -->
+    <section class="section band">
+      <div class="wrap">
+        <p class="label">Who it's for</p>
+        <div class="audiences">
+          <article class="card">
+            <h3>Home</h3>
+            <p class="lede">See your whole home at once. Four cameras or more, set up in an evening.</p>
+            <p class="muted">Works with UniFi, Reolink and ONVIF cameras.</p>
+          </article>
+          <article class="card">
+            <h3>Sites</h3>
+            <p class="lede">Warehouses, construction, campuses, retail and venues. Every camera placed, every gap known.</p>
+            <p class="muted">For operators and security leads.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Next -->
+    <section class="section">
+      <div class="wrap">
+        <p class="label">On the way</p>
+        <h2 class="display-l">Next.</h2>
+        <div class="next">
+          {
+            next.map((n) => (
+              <article class="card">
+                <h3>{n.title}</h3>
+                <p class="muted">{n.body}</p>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section id="start" class="section cta">
+      <div class="wrap cta-inner">
+        <img src="/brand/minastir-mark-for-dark.svg" alt="" width="72" height="66" />
+        <h2 class="display-l">Every camera. One world.</h2>
+        <p class="lede">Tell us about your site and the cameras you have. We'll help you map it.</p>
+        <a class="btn btn-primary" href={SITE.contact}>Map my site</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <img src="/brand/minastir-wordmark-white.svg" alt="Minastir" width="132" height="14" />
+      <span class="muted">See the whole ground.</span>
+      <span class="muted">© {new Date().getFullYear()} Minastir · minastir.io</span>
+    </div>
+  </footer>
+</Base>
+
+<script>
+  // The 3D scene loads after the page: text and buttons don't wait for three.js.
+  const canvas = document.getElementById("hero-scene") as HTMLCanvasElement | null;
+  const tags = document.getElementById("hero-tags");
+  if (canvas && tags) {
+    import("../scripts/hero3d")
+      .then(({ mountHero }) => mountHero(canvas, tags))
+      .catch((e) => console.warn("hero scene unavailable", e)); // no WebGL: the copy still stands on the dark ground
+  }
+</script>
+
+<style>
+  .muted {
+    color: var(--muted);
+  }
+  h3 {
+    font: 500 22px/28px var(--font-display);
+    letter-spacing: -0.01em;
+    margin: 0 0 8px;
+  }
+  .band {
+    background: var(--surface);
+    border-block: 1px solid var(--hairline);
+  }
+
+  /* Nav */
+  .nav {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 10;
+    padding-top: env(safe-area-inset-top, 0px);
+    background: rgba(14, 15, 17, 0.82);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--hairline);
+  }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    height: 76px;
+  }
+  .lockup img {
+    height: 30px;
+    width: auto;
+  }
+  .nav nav {
+    display: flex;
+    gap: 28px;
+    margin-left: auto;
+  }
+  .nav nav a {
+    text-decoration: none;
+    color: var(--ash);
+    font-weight: 500;
+    font-size: 14px;
+  }
+  .nav nav a:hover {
+    color: var(--white);
+  }
+  .nav-cta {
+    min-height: 40px;
+  }
+  @media (max-width: 760px) {
+    .nav nav {
+      display: none;
+    }
+    .nav-cta {
+      margin-left: auto;
+    }
+  }
+
+  /* Hero */
+  .hero {
+    position: relative;
+    min-height: max(640px, 100svh);
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+  }
+  #hero-scene {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .hero-tags {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  .hero-tags :global(.hero-tag) {
+    position: absolute;
+    left: 0;
+    top: 0;
+    will-change: transform;
+  }
+  .hero-fade {
+    position: absolute;
+    inset: auto 0 0;
+    height: 55%;
+    background: linear-gradient(to top, var(--ground) 18%, rgba(14, 15, 17, 0));
+    pointer-events: none;
+  }
+  .hero-copy {
+    position: relative;
+    padding-bottom: 88px;
+    max-width: var(--max);
+  }
+  .hero-copy .lede {
+    max-width: 560px;
+    margin: 20px 0 32px;
+  }
+  .hero-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  /* Split sections */
+  .split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+  .split .lede {
+    margin-top: 20px;
+  }
+  @media (max-width: 900px) {
+    .split {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+  }
+
+  /* Feeds → one view */
+  .compare {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+  }
+  .tiles {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+    width: min(240px, 44vw);
+  }
+  .tile {
+    aspect-ratio: 16 / 10;
+    border-radius: 4px;
+    background: var(--graphite);
+  }
+  .tile.lit {
+    background: #3a3e44;
+  }
+  .arrow {
+    color: var(--muted);
+    font-size: 24px;
+  }
+  .one {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    padding: 28px;
+    border-radius: var(--r-media);
+    border: 1px solid var(--hairline);
+    background: var(--surface);
+  }
+
+  /* Steps */
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 48px;
+  }
+  .step .numeral {
+    display: block;
+    color: var(--muted);
+    margin-bottom: 24px;
+  }
+  .step p {
+    color: var(--ash);
+    margin: 0;
+  }
+  @media (max-width: 900px) {
+    .steps {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Built list */
+  .built {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 20px;
+  }
+  .built li {
+    display: grid;
+    gap: 8px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .built li:last-child {
+    border-bottom: 0;
+  }
+  .built p {
+    margin: 0;
+    color: var(--ash);
+  }
+  .built .pill {
+    justify-self: start;
+  }
+
+  /* Readouts */
+  .readouts {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+  .readouts > div {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .readouts small {
+    font-size: 28px;
+    margin-left: 4px;
+    color: var(--ash);
+  }
+  .readout-note {
+    grid-column: 1 / -1;
+    margin: 8px 0 0;
+    color: var(--muted);
+    font-size: 13px;
+  }
+  @media (max-width: 760px) {
+    .readouts {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Privacy */
+  .privacy .lede {
+    margin: 0 0 24px;
+  }
+  .facts {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 12px;
+  }
+  .facts li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--ash);
+  }
+
+  /* Audiences, next */
+  .audiences,
+  .next {
+    display: grid;
+    gap: 16px;
+    margin-top: 32px;
+  }
+  .audiences {
+    grid-template-columns: 1fr 1fr;
+  }
+  .next {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .audiences .lede {
+    margin: 0 0 12px;
+  }
+  .audiences p,
+  .next p {
+    margin: 0;
+  }
+  @media (max-width: 900px) {
+    .audiences,
+    .next {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* CTA */
+  .cta-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+  }
+  .cta-inner .lede {
+    margin: 0;
+    max-width: 520px;
+  }
+
+  /* Footer */
+  .footer {
+    border-top: 1px solid var(--hairline);
+    padding: 36px 0 calc(36px + env(safe-area-inset-bottom, 0px));
+  }
+  .footer-inner {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    font-size: 13px;
+  }
+  .footer-inner span:last-child {
+    margin-left: auto;
+  }
+</style>

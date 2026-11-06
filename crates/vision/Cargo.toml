@@ -1,0 +1,23 @@
+[package]
+name = "minastir-vision"
+version = "0.1.0"
+edition = "2021"
+license = "Apache-2.0"
+description = "Live object detection, ground projection and tracking for Minastir"
+
+[dependencies]
+anyhow = "1"
+# api-21, not the default api-31: from api-22 ort turns on ORT's automatic device selection, which
+# silently routes sessions through CoreML even when we ask for CPU.
+ort = { version = "=2.0.0-rc.15", default-features = false, features = ["std", "ndarray", "download-binaries", "tls-native", "copy-dylibs", "api-21", "coreml", "half"] }
+half = "2"
+# Tokenizer for the scene describer (pure-Rust regex, no C dependency).
+tokenizers = { version = "0.22", default-features = false, features = ["fancy-regex"] }
+ndarray = "0.17"
+serde = { version = "1", features = ["derive"] }
+reqwest = { version = "0.12", default-features = false, features = ["blocking", "rustls-tls"] }
+minastir-core = { path = "../core" }
+
+image = { version = "0.25", default-features = false, features = ["jpeg", "png"] }
+serde_json = "1"
+rustfft = "6"

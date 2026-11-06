@@ -1,0 +1,20 @@
+{
+  "name": "minastir",
+  "private": true,
+  "license": "Apache-2.0",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "concurrently -k -n server,web -c blue,magenta \"cargo run -p minastir-server\" \"npm run dev -w @minastir/web\"",
+    "build": "npm run build -w @minastir/web && cargo build --release -p minastir-server",
+    "start": "cargo run --release -p minastir-server",
+    "typecheck": "npm run typecheck -w @minastir/web",
+    "dev:site": "npm run dev -w @minastir/site",
+    "build:site": "npm run build -w @minastir/site"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.6"
+  }
+}

@@ -1,0 +1,206 @@
+/* Minastir brand tokens (brand/Minastir-Brand-Guidelines.pdf). Night is the default. */
+@import "@fontsource/outfit/300.css";
+@import "@fontsource/outfit/500.css";
+@import "@fontsource/outfit/600.css";
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/500.css";
+@import "@fontsource/inter/600.css";
+
+:root {
+  --ground: #0e0f11;
+  --surface: #17191c;
+  --graphite: #2a2d32;
+  --hairline: rgba(242, 243, 245, 0.1);
+  --ash: #b9bec5;
+  --muted: #9a9fa6;
+  --white: #f2f3f5;
+  --on-white: #111316;
+  --clear: #4c9bff;
+  --alert: #f2665e;
+
+  --font-display: "Outfit", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --r-chip: 8px;
+  --r-card: 12px;
+  --r-media: 20px;
+  --max: 1160px;
+  --gutter: 24px;
+  color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html {
+  background: var(--ground);
+  scroll-behavior: smooth;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--white);
+  font: 400 15px/22px var(--font-body);
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
+}
+img,
+svg,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+a {
+  color: inherit;
+}
+:focus-visible {
+  outline: 2px solid var(--clear);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.wrap {
+  width: min(var(--max), 100% - 2 * var(--gutter));
+  margin-inline: auto;
+}
+
+/* Type scale */
+.display-xl {
+  font: 500 76px/76px var(--font-display);
+  letter-spacing: -0.03em;
+  margin: 0;
+}
+.display-l {
+  font: 500 48px/52px var(--font-display);
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+.numeral {
+  font: 300 64px/64px var(--font-display);
+  letter-spacing: -0.03em;
+}
+.label {
+  font: 500 13px/18px var(--font-body);
+  color: var(--muted);
+}
+.lede {
+  font-size: 18px;
+  line-height: 28px;
+  color: var(--ash);
+}
+@media (max-width: 760px) {
+  .display-xl {
+    font-size: 48px;
+    line-height: 50px;
+  }
+  .display-l {
+    font-size: 34px;
+    line-height: 38px;
+  }
+  .numeral {
+    font-size: 48px;
+    line-height: 48px;
+  }
+}
+
+/* Buttons: one white primary per view; verbs. */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 20px;
+  border-radius: var(--r-card);
+  font: 600 15px/1 var(--font-body);
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+  cursor: pointer;
+}
+.btn-primary {
+  background: var(--white);
+  color: var(--on-white);
+}
+.btn-primary:hover {
+  background: #ffffff;
+}
+.btn-quiet {
+  border-color: var(--hairline);
+  color: var(--white);
+  background: transparent;
+}
+.btn-quiet:hover {
+  border-color: rgba(242, 243, 245, 0.28);
+}
+
+/* Map labels: dark pill with a status dot; colour always paired with words. */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(23, 25, 28, 0.86);
+  color: var(--white);
+  font: 500 13px/18px var(--font-body);
+  white-space: nowrap;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--white);
+  flex: none;
+}
+.dot.clear {
+  background: var(--clear);
+}
+.dot.alert {
+  background: var(--alert);
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-media);
+  padding: 28px;
+}
+
+.section {
+  padding: 120px 0;
+}
+@media (max-width: 760px) {
+  .section {
+    padding: 80px 0;
+  }
+}
+
+/* Card for the selected person in the 3D view (light on Night). */
+.hero-card {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: rgba(242, 243, 245, 0.96);
+  color: #111316;
+  white-space: nowrap;
+  font: 400 14px/20px var(--font-body);
+}
+.hero-card strong {
+  font-weight: 600;
+}
+.hero-card span {
+  color: #5e636b;
+  font-size: 13px;
+}

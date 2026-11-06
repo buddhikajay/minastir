@@ -1,0 +1,27 @@
+[package]
+name = "minastir-core"
+version = "0.1.0"
+edition = "2021"
+license = "Apache-2.0"
+description = "Plug-and-play 3D reconstruction from ONVIF security cameras"
+
+[lib]
+path = "src/lib.rs"
+
+[[bin]]
+name = "minastir"
+path = "src/main.rs"
+
+[dependencies]
+anyhow = "1"
+base64 = "0.22"
+chrono = { version = "0.4", default-features = false, features = ["clock", "std"] }
+dns-lookup = "2"
+clap = { version = "4", features = ["derive", "env"] }
+rand = "0.8"
+reqwest = { version = "0.12", default-features = false, features = ["blocking", "json"] }
+roxmltree = "0.20"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+sha1 = "0.10"
+uuid = { version = "1", features = ["v4"] }

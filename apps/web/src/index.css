@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+/* Light, quiet, precise — UniFi chrome, Tesla-style scene. */
+@theme {
+  --color-bg: #f4f5f6;
+  --color-surface: #ffffff;
+  --color-sunken: #eceef0;
+  --color-line: #e4e6e9;
+  --color-line-strong: #d4d7db;
+  --color-fg: #212327;
+  --color-muted: #6f7680;
+  --color-faint: #a3a9b0;
+  --color-accent: #006fff;
+  --color-ok: #38b46b;
+  --color-warn: #e29a2d;
+  --color-bad: #e5484d;
+  --color-video: #111214;
+  --color-hd: #5bc77a;
+  --color-2k: #6cc4f0;
+  --color-4k: #2b6ef2;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+  --font-mono: "SF Mono", ui-monospace, Menlo, monospace;
+  --shadow-float: 0 1px 2px rgb(16 24 40 / 0.06), 0 4px 16px rgb(16 24 40 / 0.08);
+}
+
+html, body, #root { height: 100%; }
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-fg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "tnum";
+}
+
+.scroll-thin { scrollbar-width: thin; scrollbar-color: #d4d7db transparent; }
+
+@keyframes shimmer { from { background-position: -200% 0 } to { background-position: 200% 0 } }
+.skeleton {
+  background: linear-gradient(90deg, #1a1c1f 0%, #222529 50%, #1a1c1f 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.6s linear infinite;
+}
+.skeleton-light {
+  background: linear-gradient(90deg, #eceef0 0%, #f4f5f6 50%, #eceef0 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.6s linear infinite;
+}
+
+.video-text { text-shadow: 0 1px 2px rgb(0 0 0 / 0.6); }
+
+@keyframes drawer-in { from { transform: translateX(16px); opacity: 0 } to { transform: none; opacity: 1 } }

@@ -1,0 +1,13 @@
+{
+  "name": "@minastir/objects",
+  "private": true,
+  "license": "Apache-2.0",
+  "type": "module",
+  "description": "Minastir's 3D object library: cars, people, trees, houses and cameras in the brand's quiet, sculpted style.",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "peerDependencies": {
+    "three": ">=0.170.0"
+  }
+}
