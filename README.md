@@ -6,7 +6,7 @@
 
 Minastir connects to ordinary ONVIF / RTSP security cameras. It works out where each camera is and what it sees, then shows the people, cars and pets they see as moving objects in one live 3D scene of your property. There's no cloud, no special hardware and no manual 3D modelling. Everything runs on your own machine.
 
-<p align="center"><img src="docs/screenshot.png" alt="Minastir: live 3D scene of a home built from four security cameras" width="900"></p>
+<p align="center"><img src="docs/screenshot.png" alt="Minastir: people and cars tracked live in a 3D scene of a home, built from its security cameras" width="900"></p>
 
 > **Status: early and experimental.** It works end to end on a real four-camera home, but it has been tuned on that one site. Expect rough edges, and please report what breaks on yours.
 
